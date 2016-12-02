@@ -109,7 +109,7 @@ public ResponseEntity<UserDetails> authenticate(@RequestBody UserDetails userDet
 			userDetails.setIsOnline('Y');
 			userDetailsDAO.updateUser(userDetails);
 		}else{
-			userDetails.setErrorCode("200");
+			userDetails.setErrorCode("404");
 			userDetails.setErrorMessage("Unauthorized entry!");
 			userDetails.setIsOnline('N');
 			userDetails.setStatus('N');
