@@ -30,7 +30,7 @@ UserDetails userDetails;
 
 @RequestMapping(value = "/register/", method = RequestMethod.POST)
 public ResponseEntity<UserDetails> addNewUser(@RequestBody UserDetails user) {
-	user.setStatus('N');
+	user.setStatus('N');// if the admin accepts the registration, the status will set to 'Y'
 	user.setIsOnline('N');
 	user.setRole("Role_User");
 	if (userDetailsDAO.saveUser(user)) {
