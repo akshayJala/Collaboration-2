@@ -56,4 +56,39 @@ public class FriendController {
 		friendsDAO.save(friends);
 		return new ResponseEntity<Friends>(friends, HttpStatus.OK);
 	}
+	@RequestMapping(value="/rejectFriend/{friendId}", method = RequestMethod.GET)
+	public ResponseEntity<Friends> rejectFriendFriendRequest(@PathVariable("friendId") String friendId, HttpSession session){
+		
+		UserDetails loggedInUser = (UserDetails) session.getAttribute("loggedInUser");
+		friends.setUserId(loggedInUser.getUserId());
+		friends.setFriendId(friendId);
+		friends.setStatus('R');
+		friendsDAO.update(friends);
+		return new ResponseEntity<Friends>(friends, HttpStatus.OK);		
+	}
+	
+	@RequestMapping(value="/getMyFriendRequests",method = RequestMethod.GET)
+	public ResponseEntity<Friends> getMyFriendRequests(HttpSession session) {
+		
+		UserDetails loggedInUser = (UserDetails) session.getAttribute("loggedInUser");
+		friendsDAO.getNewFriendRequests(loggedInUser.getUserId());
+		return new ResponseEntity<Friends>(friends, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/acceptFriend/{friendId}", method = RequestMethod.GET)
+	public ResponseEntity<Friends> acceptFriendRequest(@PathVariable("friendId") String friendId, HttpSession session) {
+		
+		UserDetails loggedInUser = (UserDetails) session.getAttribute("loggedInUser");
+		friends.setUserId(loggedInUser.getUserId());
+		friends.setFriendId(friendId);
+		friends.setStatus('A');
+		friendsDAO.update(friends);
+		return new ResponseEntity<Friends>(friends, HttpStatus.OK);
+	}
+	@RequestMapping(value="/myFriends/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<Friends>> getMyFriendsTemp(@PathVariable("id") String id) {
+	
+		List<Friends> myFriends = friendsDAO.getMyFriend(id);
+		return new ResponseEntity<List<Friends>>(myFriends, HttpStatus.OK);
+	}
 }
