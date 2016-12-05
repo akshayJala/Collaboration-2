@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.collaboration.model.Job;
+import com.niit.collaboration.model.JobApplication;
 
 @Repository("jobDetailsDAO")
 public class JobDAOImpl implements JobDAO{
@@ -51,6 +52,23 @@ public class JobDAOImpl implements JobDAO{
 		}
 		
 		
+	}
+	@Transactional
+	public boolean save(JobApplication jobApplication){	
+		
+		try{
+		  sessionFactory.getCurrentSession().save(jobApplication);
+		}catch (HibernateException e ){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}	
+	@Transactional
+	public JobApplication getMyAppliedJobs(String userID) {
+		String hql = "from Job where id in (select id from JobApplication where userID = '" + userID + "')";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		return (JobApplication) query.list();
 	}
 	@Transactional
 	public boolean removeJob(int jobId) {
