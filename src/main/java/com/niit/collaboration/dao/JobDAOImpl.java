@@ -99,5 +99,23 @@ public class JobDAOImpl implements JobDAO{
 		return query.list();
 		
 	}
+	@Transactional
+	public JobApplication getJobApplication(int jobId) {
+		String hql= "from JobApplication where jobID = " + "'" + jobId + "'";
+		
+		@SuppressWarnings({ "rawtypes" })
+		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		@SuppressWarnings({ "unchecked" })
+		List<JobApplication> list=query.list();
+		if(list==null || list.isEmpty())
+		{
+			
+			return null;
+		}
+		else
+		{
+			return list.get(0);
+		}
 
+	}
 }

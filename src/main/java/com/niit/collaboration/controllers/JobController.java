@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.collaboration.dao.JobDAO;
@@ -86,5 +87,20 @@ public class JobController {
 		logger.debug("Starting of the method getJobDetails");
 		Job job= jobDAO.getJob(jobId);
 		return new ResponseEntity<Job>(job, HttpStatus.OK);
+	}
+	@RequestMapping(value="/getAllJobDetails/{jobId}", method  = RequestMethod.PUT)
+	public ResponseEntity<Job> getAllJobDetails(@RequestParam("jobId")int jobId, HttpSession httpSession){
+		logger.debug("Starting of the method getAllJobDetails");
+		String loggedInUserId =  (String) httpSession.getAttribute("loggedInUserId");
+		
+		jobApplication = jobDAO.getJobApplication(jobId);
+		jobApplication.setUserId(loggedInUserId);
+		jobApplication.setStatus('N');
+		if(jobDAO.save(jobApplication)) {
+			job.setErrorCode("404");
+			job.setErrorMessage("cant apply");
+			logger.debug("cant apply");
+		}
+		return new ResponseEntity<Job>(job , HttpStatus.OK);
 	}
 }
