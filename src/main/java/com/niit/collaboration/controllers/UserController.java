@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.niit.collaboration.dao.FriendDAO;
+
 import com.niit.collaboration.dao.UserDetailsDAO;
 
 import com.niit.collaboration.model.UserDetails;
@@ -23,8 +23,6 @@ import com.niit.collaboration.model.UserDetails;
 public class UserController {
 @Autowired 
 UserDetailsDAO userDetailsDAO;
-@Autowired
-FriendDAO friendDAO;
 @Autowired
 UserDetails userDetails;
 

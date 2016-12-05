@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="c_friend")
 @Component
-public class Friend extends ErrorDomain {
+public class Friends extends ErrorDomain {
 	@Id
 private String friendId;
 private String userId;

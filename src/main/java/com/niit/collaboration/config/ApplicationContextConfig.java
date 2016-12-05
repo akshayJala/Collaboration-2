@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.niit.collaboration.model.Blog;
 import com.niit.collaboration.model.BlogComment;
 import com.niit.collaboration.model.Event;
-import com.niit.collaboration.model.Friend;
+import com.niit.collaboration.model.Friends;
 import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.JobApplication;
 import com.niit.collaboration.model.UserDetails;
@@ -69,7 +69,7 @@ public class ApplicationContextConfig {
 		//sessionBuilder.addAnnotatedClass(Forum.class);
 		sessionBuilder.addAnnotatedClass(Blog.class);
 		sessionBuilder.addAnnotatedClass(BlogComment.class);
-		sessionBuilder.addAnnotatedClass(Friend.class);
+		sessionBuilder.addAnnotatedClass(Friends.class);
 		sessionBuilder.addAnnotatedClass(Job.class);
 		sessionBuilder.addAnnotatedClass(Event.class);
 		sessionBuilder.addAnnotatedClass(JobApplication.class);
