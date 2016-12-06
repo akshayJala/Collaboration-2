@@ -11,11 +11,25 @@ import org.springframework.stereotype.Component;
 public class Job extends ErrorDomain {
 	@Id
 private String jobId;
+	private String UserId;
 private String profile;
 private String salary;
 private String description;
 private String jobLocation;
 private String qualifications;
+private char status;
+public char getStatus() {
+	return status;
+}
+public void setStatus(char status) {
+	this.status = status;
+}
+public String getUserId() {
+	return UserId;
+}
+public void setUserId(String UserId) {
+	this.UserId = UserId;
+}
 public String getJobId() {
 	return jobId;
 }
@@ -52,4 +66,5 @@ public String getQualifications() {
 public void setQualifications(String qualifications) {
 	this.qualifications = qualifications;
 }
+
 }

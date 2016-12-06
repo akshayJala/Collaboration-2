@@ -100,6 +100,12 @@ public class JobDAOImpl implements JobDAO{
 		
 	}
 	@Transactional
+	public JobApplication get(String userId, int jobId) {
+		String hql = "from JobApplication where userID = '" + userId + "'and jobID = '"+ jobId+ "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		return (JobApplication) query.list();
+	}
+	@Transactional
 	public JobApplication getJobApplication(int jobId) {
 		String hql= "from JobApplication where jobID = " + "'" + jobId + "'";
 		
