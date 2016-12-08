@@ -16,7 +16,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.niit.collaboration.model.Blog;
 import com.niit.collaboration.model.BlogComment;
+import com.niit.collaboration.model.Chat;
+import com.niit.collaboration.model.ChatForum;
+import com.niit.collaboration.model.ChatForumComment;
 import com.niit.collaboration.model.Event;
+import com.niit.collaboration.model.Forum;
 import com.niit.collaboration.model.Friends;
 import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.JobApplication;
@@ -65,8 +69,8 @@ public class ApplicationContextConfig {
    public SessionFactory getSessionFactory(DataSource datasouce){
    LocalSessionFactoryBuilder sessionBuilder=new LocalSessionFactoryBuilder(getOracleDataSource());
 	sessionBuilder.addProperties(getHibernateProperties());
-		//sessionBuilder.addAnnotatedClass(Chat.class);
-		//sessionBuilder.addAnnotatedClass(Forum.class);
+		sessionBuilder.addAnnotatedClass(Chat.class);
+		sessionBuilder.addAnnotatedClass(Forum.class);
 		sessionBuilder.addAnnotatedClass(Blog.class);
 		sessionBuilder.addAnnotatedClass(BlogComment.class);
 		sessionBuilder.addAnnotatedClass(Friends.class);
@@ -74,8 +78,8 @@ public class ApplicationContextConfig {
 		sessionBuilder.addAnnotatedClass(Event.class);
 		sessionBuilder.addAnnotatedClass(JobApplication.class);
 		sessionBuilder.addAnnotatedClass(UserDetails.class);
-		//sessionBuilder.addAnnotatedClass(ChatForum.class);
-		//sessionBuilder.addAnnotatedClass(ChatForumComment.class);
+		sessionBuilder.addAnnotatedClass(ChatForum.class);
+		sessionBuilder.addAnnotatedClass(ChatForumComment.class);
 		
 		System.out.println("Database connected");
 		return sessionBuilder.buildSessionFactory();
