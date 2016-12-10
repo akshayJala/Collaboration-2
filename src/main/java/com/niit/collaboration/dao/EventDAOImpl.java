@@ -57,7 +57,7 @@ public class EventDAOImpl implements EventDAO {
 		return true ;
 	}
 	@Transactional
-	public Event getEvent(int eventId) {
+	public Event getEvent(String eventId) {
 		return (Event)sessionFactory.getCurrentSession().get(Event.class, eventId);
 		
 	}
@@ -70,7 +70,7 @@ public class EventDAOImpl implements EventDAO {
 	}
 	
 	@Transactional
-	public boolean deleteEvent(int eventId) {
+	public boolean deleteEvent(String eventId) {
 		try {
 			Event event = new Event();
 			event.setEventId(eventId);

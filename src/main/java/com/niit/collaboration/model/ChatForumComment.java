@@ -17,7 +17,7 @@ public class ChatForumComment extends ErrorDomain {
 	@Id
 	private int id;
 	private String forumId;
-	private String user_id;
+	private String userId;
 	private String message;
 	private Date commentDate;
 	public int getId() {
@@ -33,10 +33,10 @@ public class ChatForumComment extends ErrorDomain {
 		this.forumId = forumId;
 	}
 	public String getUser_id() {
-		return user_id;
+		return userId;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUser_id(String userId) {
+		this.userId = userId;
 	}
 	public String getMessage() {
 		return message;

@@ -20,7 +20,16 @@ public class Chat {
 	private int chat_Id;
 	private String username;
 	private Date TimeAndDate;
-	public int getChat_Id() {
+	private String message;
+
+	
+public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
+public int getChat_Id() {
 		return chat_Id;
 	}
 	public void setChat_Id(int chat_Id) {
@@ -38,11 +47,6 @@ public class Chat {
 	public void setTimeAndDate(Date timeAndDate) {
 		TimeAndDate = timeAndDate;
 	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	private String message;
+	
+	
 }

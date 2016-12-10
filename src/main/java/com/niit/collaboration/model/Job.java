@@ -10,14 +10,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class Job extends ErrorDomain {
 	@Id
-private String jobId;
+private int jobId;
+	private String title;
 	private String UserId;
 private String profile;
 private String salary;
 private String description;
-private String jobLocation;
 private String qualifications;
 private char status;
+public String getTitle() {
+	return title;
+}
+public void setTitle(String title) {
+	this.title = title;
+}
 public char getStatus() {
 	return status;
 }
@@ -30,10 +36,10 @@ public String getUserId() {
 public void setUserId(String UserId) {
 	this.UserId = UserId;
 }
-public String getJobId() {
+public int getJobId() {
 	return jobId;
 }
-public void setJobId(String jobId) {
+public void setJobId(int jobId) {
 	this.jobId = jobId;
 }
 public String getProfile() {
@@ -54,12 +60,7 @@ public String getDescription() {
 public void setDescription(String description) {
 	this.description = description;
 }
-public String getJobLocation() {
-	return jobLocation;
-}
-public void setJobLocation(String jobLocation) {
-	this.jobLocation = jobLocation;
-}
+
 public String getQualifications() {
 	return qualifications;
 }

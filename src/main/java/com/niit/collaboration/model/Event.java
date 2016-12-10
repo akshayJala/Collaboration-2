@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class Event extends ErrorDomain{
 	@Id
-private int eventId;
+private String eventId;
 private String eventLocation;
 private String eventDate;
 private String description;
-public int getEventId() {
+public String getEventId() {
 	return eventId;
 }
-public void setEventId(int eventId) {
+public void setEventId(String eventId) {
 	this.eventId = eventId;
 }
 public String getEventLocation() {

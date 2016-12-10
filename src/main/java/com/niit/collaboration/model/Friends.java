@@ -10,10 +10,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class Friends extends ErrorDomain {
 	@Id
+	private int id;
 private String friendId;
 private String userId;
 private char status;
 private char isOnline;
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
 public String getFriendId() {
 	return friendId;
 }

@@ -1,5 +1,7 @@
 package com.niit.collaboration.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,7 +18,13 @@ private String description;
 private String userId;
 private char status;
 private String reason;
-private String dateofcreation;
+private Date dateofcreation;
+public Date getDateofcreation() {
+	return dateofcreation;
+}
+public void setDateofcreation(Date dateofcreation) {
+	this.dateofcreation = dateofcreation;
+}
 public int getBlogId() {
 	return blogId;
 }
@@ -53,11 +61,7 @@ public String getReason() {
 public void setReason(String reason) {
 	this.reason = reason;
 }
-public String getDateofcreation() {
-	return dateofcreation;
-}
-public void setDateofcreation(String dateofcreation) {
-	this.dateofcreation = dateofcreation;
-}
+
+
 
 }
