@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.collaboration.model.UserDetails;
+import com.niit.collaboration.model.User;
 
-@Repository("userDetailsDAO")
-public class UserDetailsDAOImpl implements UserDetailsDAO {
+@Repository("userDAO")
+public class UserDAOImpl implements UserDAO {
 	
 	
 
@@ -20,12 +20,12 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 	SessionFactory sessionFactory;
 
 	@Autowired
-	UserDetails userDetails ;
+	User user ;
 	
 	@Autowired
-	UserDetailsDAO userDetailsDAO ;
+	UserDAO userDAO ;
 	
-	public UserDetailsDAOImpl() { }
+	public UserDAOImpl() { }
 	 
 
 	public SessionFactory getSessionFactory() {
@@ -38,14 +38,14 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 	}
 
 
-	public UserDetailsDAOImpl(SessionFactory sessionFactory) {
+	public UserDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
 	@Transactional
-	public boolean saveUser(UserDetails userDetails) {
+	public boolean saveUser(User user) {
 		try {
-			sessionFactory.getCurrentSession().save(userDetails);
+			sessionFactory.getCurrentSession().save(user);
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -54,9 +54,9 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 	}
 
 	@Transactional
-	public boolean updateUser(UserDetails userDetails) {
+	public boolean updateUser(User user) {
 		try {
-			sessionFactory.getCurrentSession().update(userDetails);
+			sessionFactory.getCurrentSession().update(user);
 			return true ;
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -67,27 +67,27 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
 	@Transactional
 	public boolean removeUser(String userId) {
-		UserDetails userDetail = new UserDetails();
+		User userDetail = new User();
 		userDetail.setUserId(userId);
 		sessionFactory.getCurrentSession().delete(userDetail);
 		return true;
 	}
 
 	@Transactional
-	public UserDetails getUser(String userId) {
+	public User getUser(String userId) {
 		/*Session session = sessionFactory.getCurrentSession();
-		Query query = session.createQuery("from UserDetails where userId=?");
+		Query query = session.createQuery("from User where userId=?");
 		query.setString(0, userId);
-		UserDetails userDetails = (UserDetails) query.uniqueResult();*/
-		return (UserDetails) sessionFactory.getCurrentSession().get(UserDetails.class, userId);
+		User user = (User) query.uniqueResult();*/
+		return (User) sessionFactory.getCurrentSession().get(User.class, userId);
 	}
 
 	@Transactional
-	public List<UserDetails> getUserList() {
-		/*List<UserDetails> listUserDetails = sessionFactory.getCurrentSession().createCriteria(UserDetails.class)
+	public List<User> getUserList() {
+		/*List<User> listUser = sessionFactory.getCurrentSession().createCriteria(User.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		return listUserDetails;*/
-		String hql = "from UserDetails";
+		return listUser;*/
+		String hql = "from User";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		
 		return query.list();
@@ -95,22 +95,22 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 
 	@Transactional
 	public void setOnline(String userId) {
-		UserDetails user = getUser(userId);
+		User user = getUser(userId);
 		user.setIsOnline('Y');
 		sessionFactory.getCurrentSession().update(user);
 	}
 
 	@Transactional
 	public void setOffline(String userId) {
-		UserDetails user = getUser(userId);
+		User user = getUser(userId);
 		user.setIsOnline('N');
 		sessionFactory.getCurrentSession().update(user);
 
 	}
 
 	@Transactional
-	public UserDetails authenticate(String userId, String password) {
-		String hql = "from UserDetails where userId='" + userId + "' and password='" + password + "'";
+	public User authenticate(String userId, String password) {
+		String hql = "from User where userId='" + userId + "' and password='" + password + "'";
 		Query query = sessionFactory.getCurrentSession().createQuery(hql);
 		
 		/*List listUser = query.list();
@@ -120,12 +120,12 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 			return null;
 		}*/
 		
-		return (UserDetails)query.uniqueResult();
+		return (User)query.uniqueResult();
 	}
 
 	@Transactional
 	public boolean isUser(String userId) {
-		List<UserDetails> userList = userDetailsDAO.getUserList();
+		List<User> userList = userDAO.getUserList();
 		int count = 0 ;
 		for(int i=0;i<userList.size()-1;i++){
 			
@@ -143,7 +143,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 	}
 	@Transactional
 	public void reject(String userId) {
-		UserDetails user = getUser(userId);
+		User user = getUser(userId);
 		user.setStatus('N');
 		user.setReason("Insert correct info");
 		sessionFactory.getCurrentSession().update(user);
@@ -151,7 +151,7 @@ public class UserDetailsDAOImpl implements UserDetailsDAO {
 	}
 	@Transactional
 	public void approve(String userId) {
-		UserDetails user = getUser(userId);
+		User user = getUser(userId);
 		user.setStatus('Y');
 		user.setReason("Insert correct info");
 		sessionFactory.getCurrentSession().update(user);

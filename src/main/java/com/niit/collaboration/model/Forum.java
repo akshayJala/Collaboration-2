@@ -17,22 +17,36 @@ public class Forum {
 
 	
 		@Id
-		private int forumId;
-		private String forumName;
+		private int forum_Id;
+		private String forum_Name;
 		private String topic;
-		private Date dateOfCreation;
-		private int userId;
-		public int getForumId() {
-			return forumId;
+		private Date creation_Date;
+		private int user_Id;
+		public int getForum_Id() {
+			return forum_Id;
 		}
-		public void setForumId(int forumId) {
-			this.forumId = forumId;
+		public void setForum_Id(int forum_Id) {
+			this.forum_Id = forum_Id;
 		}
-		public String getForumName() {
-			return forumName;
+		public String getForum_Name() {
+			return forum_Name;
 		}
-		public void setForumName(String forumName) {
-			this.forumName = forumName;
+		public void setForum_Name(String forum_Name) {
+			this.forum_Name = forum_Name;
+		}
+		
+		public Date getCreation_Date() {
+			return creation_Date;
+		}
+		public void setCreation_Date(Date creation_Date) {
+			this.creation_Date = creation_Date;
+		}
+		
+		public int getUser_Id() {
+			return user_Id;
+		}
+		public void setUser_Id(int user_Id) {
+			this.user_Id = user_Id;
 		}
 		public String getTopic() {
 			return topic;
@@ -40,16 +54,6 @@ public class Forum {
 		public void setTopic(String topic) {
 			this.topic = topic;
 		}
-		public Date getDateOfCreation() {
-			return dateOfCreation;
-		}
-		public void setDateOfCreation(Date dateOfCreation) {
-			this.dateOfCreation = dateOfCreation;
-		}
-		public int getUserId() {
-			return userId;
-		}
-		public void setUserId(int userId) {
-			this.userId = userId;
-		}
+		
+	
 }

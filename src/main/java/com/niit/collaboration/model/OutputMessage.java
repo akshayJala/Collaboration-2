@@ -2,9 +2,9 @@ package com.niit.collaboration.model;
 
 import java.util.Date;
 
-public class OutputMessage extends Message{
+public class OutputMessage extends Message {
 
-	private Date time;
+private Date time;
 	
 	public OutputMessage(Message original , Date time) {
 		super(original.getId() , original.getMessage());
@@ -19,5 +19,4 @@ public class OutputMessage extends Message{
 		this.time = time;
 	}
 	
-	
- }
+}

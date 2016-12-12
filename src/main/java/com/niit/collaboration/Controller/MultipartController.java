@@ -1,4 +1,4 @@
-package com.niit.collaboration.controllers;
+package com.niit.collaboration.Controller;
 
 import java.io.File;
 import java.io.FileInputStream;

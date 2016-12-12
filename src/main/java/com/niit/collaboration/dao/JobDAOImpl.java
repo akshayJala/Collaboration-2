@@ -7,121 +7,183 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.niit.collaboration.model.Blog;
 import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.JobApplication;
+import com.niit.collaboration.model.User;
 
-@Repository("jobDetailsDAO")
-public class JobDAOImpl implements JobDAO{
+@SuppressWarnings("deprecation")
+@EnableTransactionManagement
+@Repository("jobDAO")
 
-
-	@Autowired
-	SessionFactory sessionFactory;
-	
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
+public class JobDAOImpl implements JobDAO {
 	
 	
-	public JobDAOImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
-
-
-	public JobDAOImpl() {
+		@Autowired
+		private SessionFactory sessionFactory;
+		public JobDAOImpl(SessionFactory sessionFactory)
+		{
+			this.sessionFactory=sessionFactory;
+		}
 		
-	}
-
-	@Transactional
-	public boolean saveJob(Job job) {
-		try {
-			sessionFactory.getCurrentSession().save(job);
-			return true ;
-		} catch (HibernateException e) {
+		@Transactional
+		public boolean save(Job job){	
 			
-			e.printStackTrace();
-			return false ;
+			try{
+			  sessionFactory.getCurrentSession().save(job);
+			}catch (HibernateException e ){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}	
+		
+		@Transactional
+		public boolean save(JobApplication jobApplication){	
+			
+			try{
+			  sessionFactory.getCurrentSession().save(jobApplication);
+			}catch (HibernateException e ){
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}	
+		
+		
+		@Transactional
+		public boolean postJob(Job job) {
+			
+			try {
+				sessionFactory.getCurrentSession().save(job);
+			} catch (HibernateException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
 		}
 		
-		
-	}
-	@Transactional
-	public boolean save(JobApplication jobApplication){	
-		
-		try{
-		  sessionFactory.getCurrentSession().save(jobApplication);
-		}catch (HibernateException e ){
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}	
-	@Transactional
-	public JobApplication getMyAppliedJobs(String userID) {
-		String hql = "from Job where id in (select id from JobApplication where userID = '" + userID + "')";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		return (JobApplication) query.list();
-	}
-	@Transactional
-	public boolean removeJob(int jobId) {
-		try {
-			sessionFactory.getCurrentSession().delete(getJob(jobId));
-			return true ;
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return false ;
+		@Transactional
+		public boolean update(Job job) {
+			try {
+				sessionFactory.getCurrentSession().update(job);
+			} catch (HibernateException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
 		}
 		
-	}
-	@Transactional
-	public Job getJob(int jobId) {
-		return (Job)sessionFactory.getCurrentSession().get(Job.class, jobId);
+		@Transactional
+		public List<Job> list(){
+			
+			String hql = "from Job";
+		Query query =sessionFactory.getCurrentSession().createQuery(hql);
 		
-	}
-	@Transactional
-	public boolean updateJob(Job job) {
-		sessionFactory.getCurrentSession().update(job);
-		return true ;
-		
-	}
-	@Transactional
-	public List<Job> jobList() {
-		String hql = "from Job";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		List<Job> listJob = query.list();
+		if(listJob == null  || listJob.isEmpty())
+		{
+			 return null;
+			 
+		}
 		return query.list();
-		
-	}
-	@Transactional
-	public JobApplication get(String userId, int jobId) {
-		String hql = "from JobApplication where userID = '" + userId + "'and jobID = '"+ jobId+ "'";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		return (JobApplication) query.list();
-	}
-	@Transactional
-	public JobApplication getJobApplication(int jobId) {
-		String hql= "from JobApplication where jobID = " + "'" + jobId + "'";
-		
-		@SuppressWarnings({ "rawtypes" })
-		Query query=sessionFactory.getCurrentSession().createQuery(hql);
-		@SuppressWarnings({ "unchecked" })
-		List<JobApplication> list=query.list();
-		if(list==null || list.isEmpty())
-		{
-			
-			return null;
-		}
-		else
-		{
-			return list.get(0);
 		}
 
-	}
+
+		@Transactional
+		public List<JobApplication> listJobApplication(){
+			
+			String hql = "from JobApplication";
+		Query query =sessionFactory.getCurrentSession().createQuery(hql);
+		
+		List<JobApplication> listJobApplication = query.list();
+		if(listJobApplication == null  || listJobApplication.isEmpty())
+		{
+			 return null;
+			 
+		}
+		return query.list();
+		}
+		
+		@Transactional
+		public List<Job> getAllVacantJobs() {
+			String hql = "from Job where status = 'V' ";
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			return query.list();
+		}
+		
+		@Transactional
+		public boolean applyForJob(JobApplication jobApplication) {
+			try {
+				sessionFactory.getCurrentSession().save(jobApplication);
+			} catch (HibernateException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+		
+		@Transactional
+		public boolean updateJobApplication(JobApplication jobApplication) {
+			try {
+				sessionFactory.getCurrentSession().update(jobApplication);
+			} catch (HibernateException e) {
+				e.printStackTrace();
+				return false;
+			}
+			return true;
+		}
+
+		@Transactional
+		public JobApplication get(String userID, int jobID) {
+			String hql = "from JobApplication where userID = '" + userID + "'and jobID = '"+ jobID+ "'";
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			return (JobApplication) query.list();
+		}
+
+		@Transactional
+		public JobApplication getMyAppliedJobs(String userID) {
+			String hql = "from Job where id in (select id from JobApplication where userID = '" + userID + "')";
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			return (JobApplication) query.list();
+		}
+		
+		@Transactional
+		public List<Job> getAllJobs() {
+			String hql = "from Job";
+			Query query = sessionFactory.getCurrentSession().createQuery(hql);
+			return query.list();
+		}
+
+		@Transactional
+		public Job getJobDetails(int JobID) {
+			return (Job) sessionFactory.getCurrentSession().get(Job.class, JobID);
+		}
+
+		@Transactional
+		public JobApplication getJobApplication(int id)
+		{
+			String hql="from JobApplication where id = " + "'" + id + "'";
+			
+			Query query=sessionFactory.getCurrentSession().createQuery(hql);
+			List<JobApplication> list=query.list();
+			if(list==null || list.isEmpty())
+			{
+				
+				return null;
+			}
+			else
+			{
+				return list.get(0);
+			}	
+		
+		}
+
+		
+		
+		
+
 }

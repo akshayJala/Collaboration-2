@@ -73,7 +73,7 @@ public class EventDAOImpl implements EventDAO {
 	public boolean deleteEvent(String eventId) {
 		try {
 			Event event = new Event();
-			event.setEventId(eventId);
+			event.setEvent_id(eventId);
 			Session session = sessionFactory.getCurrentSession();
 			session.delete(getEvent(eventId));
 			return true ;

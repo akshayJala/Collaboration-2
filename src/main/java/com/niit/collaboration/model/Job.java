@@ -1,71 +1,83 @@
 package com.niit.collaboration.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+
 @Entity
 @Table(name="c_job")
 @Component
 public class Job extends ErrorDomain {
-	@Id
-private int jobId;
-	private String title;
-	private String UserId;
-private String profile;
-private String salary;
-private String description;
-private String qualifications;
-private char status;
-public String getTitle() {
-	return title;
-}
-public void setTitle(String title) {
-	this.title = title;
-}
-public char getStatus() {
-	return status;
-}
-public void setStatus(char status) {
-	this.status = status;
-}
-public String getUserId() {
-	return UserId;
-}
-public void setUserId(String UserId) {
-	this.UserId = UserId;
-}
-public int getJobId() {
-	return jobId;
-}
-public void setJobId(int jobId) {
-	this.jobId = jobId;
-}
-public String getProfile() {
-	return profile;
-}
-public void setProfile(String profile) {
-	this.profile = profile;
-}
-public String getSalary() {
-	return salary;
-}
-public void setSalary(String salary) {
-	this.salary = salary;
-}
-public String getDescription() {
-	return description;
-}
-public void setDescription(String description) {
-	this.description = description;
-}
 
-public String getQualifications() {
-	return qualifications;
-}
-public void setQualifications(String qualifications) {
-	this.qualifications = qualifications;
-}
-
+	
+		@Id
+		@GeneratedValue(strategy=GenerationType.AUTO)
+		private int id;
+		private String title;
+		private String userID;
+		private String description;
+		private Date dateTime;
+		private String qualification;
+		private String status;
+		
+		
+		
+		
+		public String getUserID() {
+			return userID;
+		}
+		public void setUserID(String userID) {
+			this.userID = userID;
+		}
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
+		public String getDescription() {
+			return description;
+		}
+		public void setDescription(String description) {
+			this.description = description;
+		}
+		public Date getDateTime() {
+			return dateTime;
+		}
+		public void setDateTime(Date dateTime) {
+			if(dateTime==null)
+			{
+				dateTime = new Date( System.currentTimeMillis());
+			}
+			this.dateTime = dateTime;
+		}
+		public String getQualification() {
+			return qualification;
+		}
+		public void setQualification(String qualification) {
+			this.qualification = qualification;
+		}
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
+		
+		
+		
+	
 }

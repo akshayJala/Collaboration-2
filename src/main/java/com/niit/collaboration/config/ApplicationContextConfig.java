@@ -24,7 +24,7 @@ import com.niit.collaboration.model.Forum;
 import com.niit.collaboration.model.Friends;
 import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.JobApplication;
-import com.niit.collaboration.model.UserDetails;
+import com.niit.collaboration.model.User;
 
 @Configuration
 @ComponentScan("com.niit.collaboration")
@@ -48,7 +48,7 @@ public class ApplicationContextConfig {
     connectionProperties.setProperty("hibernte.dialect", "org.hibernate.dialect.Oracle10gDialect");
     connectionProperties.setProperty("hiberanate.format_sql", "true");
     connectionProperties.setProperty("hibernate.jdbc.use_get_generated_keys", "true");
-    connectionProperties.setProperty("hibernate.default_schema", "system"); 		
+    //connectionProperties.setProperty("hibernate.default_schema", "system"); 		
     datasource.setConnectionProperties(connectionProperties);
     
     return datasource;
@@ -77,7 +77,7 @@ public class ApplicationContextConfig {
 		sessionBuilder.addAnnotatedClass(Job.class);
 		sessionBuilder.addAnnotatedClass(Event.class);
 		sessionBuilder.addAnnotatedClass(JobApplication.class);
-		sessionBuilder.addAnnotatedClass(UserDetails.class);
+		sessionBuilder.addAnnotatedClass(User.class);
 		sessionBuilder.addAnnotatedClass(ChatForum.class);
 		sessionBuilder.addAnnotatedClass(ChatForumComment.class);
 		

@@ -2,93 +2,102 @@ package com.niit.collaboration.dao;
 
 import java.util.List;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.collaboration.model.Blog;
 
-@Repository("BlogDAO")
-public class BlogDAOImpl implements BlogDAO{
-	
-	
+@SuppressWarnings("deprecation")
+@EnableTransactionManagement
+@Repository("blogDAO")
+
+public class BlogDAOImpl implements BlogDAO {
 
 	@Autowired
-	SessionFactory sessionFactory;
-
-	@Autowired
-	Blog blog ;
+	private SessionFactory sessionFactory;
+	public BlogDAOImpl(SessionFactory sessionFactory)
+	{
+		this.sessionFactory=sessionFactory;
+	}
 	
-	@Autowired
-	BlogDAO blogDAO ;
-	
-	public BlogDAOImpl() { }
-	 
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-
-	public BlogDAOImpl(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 	@Transactional
-	public boolean saveBlog(Blog blog) {
-		try {
-			sessionFactory.getCurrentSession().save(blog);
-			return true;
-		} catch (HibernateException e) {
+	public boolean save(Blog blog){	
+		
+		try{
+		  sessionFactory.getCurrentSession().save(blog);
+	return true;
+		}catch (Exception e ){
 			e.printStackTrace();
-			return false ;
+			return false;
 		}
-	}
+	}	
 	@Transactional
-	public boolean deleteBlog(int blogId) {
-		Blog blog = new Blog();
-		blog.setBlogId(blogId);
-		sessionFactory.getCurrentSession().delete(blog);
-		return true;
-	}
-	@Transactional
-	public void updateBlog(Blog blog) {
-		try {
+	public boolean update(Blog blog){
+		
+		try{
 			sessionFactory.getCurrentSession().update(blog);
-			
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			
+	return true;
+		} catch (Exception e){
+	       e.printStackTrace();
+	       return false;
 		}
-		
 	}
 	@Transactional
-	public Blog getBlog(int blogId) {
-		return (Blog) sessionFactory.getCurrentSession().get(Blog.class, blogId);
-	}
-
-	public List<Blog> blogList() {
-		
-		Session session;
-
-		try {
-		    session = sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
-		    session = sessionFactory.openSession();
+	public boolean delete(Blog blog){
+		try{
+	       sessionFactory.getCurrentSession().delete(blog);
+	return true;
+		} catch (Exception e){
+			
+	       e.printStackTrace();
+	       return false;
 		}
+	}
+	
+	@Transactional
+	public List<Blog> list(){
+		
 		String hql = "from Blog";
-		Query query = session.createQuery(hql) ;
-		
-		return query.list();
-		
+	Query query =sessionFactory.getCurrentSession().createQuery(hql);
+	
+	List<Blog> listBlog = query.list();
+	if(listBlog == null  || listBlog.isEmpty())
+	{
+		 return null;
+		 
+	}
+	return query.list();
 	}
 
+	@Transactional
+	public Blog get(int id) {
+
+		String hql="from Blog where id = " + "'" + id + "'";
+		Query query=sessionFactory.getCurrentSession().createQuery(hql);
+		List<Blog> list=query.list();
+		if(list==null || list.isEmpty())
+		{
+			
+			return null;
+		}
+		else
+		{
+			return list.get(0);
+		}
+	}
+
+	@Transactional
+	public Blog delete(int id) 
+	{
+		Blog BlogToDelete = new Blog();
+		BlogToDelete.setId(id);
+		sessionFactory.getCurrentSession().delete(BlogToDelete);
+		return null;
+	}
+
+	
 }

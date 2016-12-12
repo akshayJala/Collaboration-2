@@ -2,12 +2,18 @@ package com.niit.collaboration.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.niit.collaboration.model.Blog;
 
+@Repository
 public interface BlogDAO {
-	public boolean saveBlog(Blog blog);
-	public boolean deleteBlog(int blogId);
-	public void updateBlog(Blog blog);
-	public Blog getBlog(int blogId);
-	public List<Blog> blogList();
+	
+	public boolean save(Blog blog);
+	public boolean update(Blog blog);
+	public Blog delete(int id);
+	public List<Blog> list();
+	public Blog get(int id);
+
+
 }

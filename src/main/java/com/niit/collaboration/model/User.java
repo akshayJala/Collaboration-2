@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name="c_user")
 @Component
-public class UserDetails extends ErrorDomain {
+public class User extends ErrorDomain {
 	
 	@Id
 	private String userId;

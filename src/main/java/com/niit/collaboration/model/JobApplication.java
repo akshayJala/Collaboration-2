@@ -3,46 +3,42 @@ package com.niit.collaboration.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
-@Entity
-@Table(name="c_jobapplication")
-@Component
-public class JobApplication {
 
+@Entity
+@Component
+@Table(name="c_jobapplication")
+public class JobApplication extends ErrorDomain{
+	
 	@Id
-	//@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private String userId;
-	private int jobId;
-    private Date appliedDate;
+	private String UserID;
+	private int jobID;
+	private Date dateTime;
     private String remarks;
-    private char status;
-	public int getId() {
-		return id;
+	private String status;
+	
+	
+	
+	
+	
+	public String getUserID() {
+		return UserID;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setUserID(String userID) {
+		UserID = userID;
 	}
-	public String getUserId() {
-		return userId;
+	public int getJobID() {
+		return jobID;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public int getJobId() {
-		return jobId;
-	}
-	public void setJobId(int jobId) {
-		this.jobId = jobId;
-	}
-	public Date getDateApplied() {
-		return appliedDate;
-	}
-	public void setDateApplied(Date appliedDate) {
-		this.appliedDate = appliedDate;
+	public void setJobID(int jobID) {
+		this.jobID = jobID;
 	}
 	public String getRemarks() {
 		return remarks;
@@ -50,11 +46,33 @@ public class JobApplication {
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public char getStatus() {
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public Date getDateTime() {
+		return dateTime;
+	}
+	public void setDateTime(Date dateTime) {
+		if(dateTime==null)
+		{
+			dateTime = new Date( System.currentTimeMillis());
+		}
+		this.dateTime = dateTime;
+	}
+	
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(char status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
-
+	
+    
+	
+	
+    
 }

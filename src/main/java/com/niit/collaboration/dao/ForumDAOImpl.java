@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.niit.collaboration.model.Forum;
 
+@SuppressWarnings("deprecation")
 @EnableTransactionManagement
 @Repository("forumDAO")
 
@@ -32,7 +33,6 @@ public class ForumDAOImpl implements ForumDAO {
 			  sessionFactory.getCurrentSession().save(forum);
 		return true;
 			}catch (Exception e ){
-		
 				e.printStackTrace();
 				return false;
 			}
@@ -44,7 +44,6 @@ public class ForumDAOImpl implements ForumDAO {
 				sessionFactory.getCurrentSession().update(forum);
 		return true;
 			} catch (Exception e){
-				
 		       e.printStackTrace();
 		       return false;
 			}
@@ -55,17 +54,16 @@ public class ForumDAOImpl implements ForumDAO {
 		       sessionFactory.getCurrentSession().delete(forum);
 		return true;
 			} catch (Exception e){
-				
 		       e.printStackTrace();
 		       return false;
 			}
 		}
 
-		
 				@Transactional
 				public List<Forum> list(){
 					
 					String hql = "from Forum";
+				@SuppressWarnings("rawtypes")
 				Query query =sessionFactory.getCurrentSession().createQuery(hql);
 				
 				List<Forum> listForum = query.list();

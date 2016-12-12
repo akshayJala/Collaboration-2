@@ -1,42 +1,73 @@
 package com.niit.collaboration.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
 @Entity
 @Table(name="c_blogcomment")
 @Component
+
+
 public class BlogComment extends ErrorDomain {
+
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private int blogId;
-	private String userId;
-	private String comment;
+	private int blogID;
+	private String userID;
+	private String bcomment;
+	private Date dateTime;
+	private String rating;
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getBlogId() {
-		return blogId;
+	public int getBlogID() {
+		return blogID;
 	}
-	public void setBlogId(int blogId) {
-		this.blogId = blogId;
+	public void setBlogID(int blogID) {
+		this.blogID = blogID;
 	}
-	public String getUserId() {
-		return userId;
+	public String getUserID() {
+		return userID;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 
+	public String getBcomment() {
+		return bcomment;
+	}
+	public void setBcomment(String bcomment) {
+		this.bcomment = bcomment;
+	}
+	public Date getDateTime() {
+		return dateTime;
+	}
+	public void setDateTime(Date dateTime) {
+		if(dateTime==null)
+		{
+			dateTime = new Date( System.currentTimeMillis());
+		}
+		this.dateTime = dateTime;
+	}
+	public String getRating() {
+		return rating;
+	}
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+	
+	
+	
 }
